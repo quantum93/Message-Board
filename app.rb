@@ -1,59 +1,59 @@
 require('sinatra')
 require('sinatra/reloader')
-require('./lib/stage')
+require('./lib/board')
 require('pry')
-require('./lib/artist')
+require('./lib/message')
 also_reload('lib/**/*.rb')
 
 get ('/') do
-  @stages = Stage.all
-  erb(:stages)
+  @boards = Board.all
+  erb(:boards)
 end
 
-get ('/stages') do
-  @stages = Stage.all
-  erb(:stages)
+get ('/boards') do
+  @boards = Board.all
+  erb(:boards)
 end
 
-get ('/stages/new') do
-  erb(:new_stage)
+get ('/boards/new') do
+  erb(:new_board)
 end
 
-post ('/stages') do
-  name = params[:stage_name]
-  artist = params[:stage_artist]
-  stage = Stage.new(name, artist, nil)
-  stage.create()
-  @stages = Stage.all()
-  erb(:stages)
+post ('/boards') do
+  name = params[:board_name]
+  message = params[:board_message]
+  board = Board.new(name, message, nil)
+  board.create()
+  @boards = Board.all()
+  erb(:boards)
 end
 
-get ('/stages/:id') do
-  @stage = Stage.find(params[:id].to_i())
-  erb(:stage)
+get ('/boards/:id') do
+  @board = Board.find(params[:id].to_i())
+  erb(:board)
 end
 
-post ('/stages_search') do
+post ('/boards_search') do
   name = params[:search]
-  @stages = Stage.search(name)
-  erb(:stage_results)
+  @board = Board.search(name)
+  erb(:board_results)
 end
 
-get ('/stages/:id/edit') do
-  @stage = Stage.find(params[:id].to_i())
-  erb(:edit_stage)
+get ('/boards/:id/edit') do
+  @board = Board.find(params[:id].to_i())
+  erb(:edit_board)
 end
 
-patch ('/stages/:id') do
-  @stage = Stage.find(params[:id].to_i())
-  @stage.update(params[:name, :artist])
-  @stages = Stage.all
-  erb(:stages)
+patch ('/boards/:id') do
+  @board = Board.find(params[:id].to_i())
+  @board.update(params[:name, :message])
+  @boards = Board.all
+  erb(:boards)
 end
 
-delete ('/stages/:id') do
-  @stage = Stage.find(params[:id].to_i())
-  @stage.delete()
-  @stages = Stage.all
-  erb(:stages)
+delete ('/boards/:id') do
+  @board = Board.find(params[:id].to_i())
+  @board.delete()
+  @boards = Board.all
+  erb(:boards)
 end

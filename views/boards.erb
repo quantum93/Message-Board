@@ -1,0 +1,32 @@
+<h1>Message Board</h1>
+
+<h3>Available Board</h3>
+
+<% if @boards.any? %>
+  <ul>
+    <% @boards.each do |board| %>
+      <li><strong><%=board.name%></strong>: <%=board.message%></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>There are currently no messages.</p>
+<% end %>
+
+<a href="/boards/new">Add a new board</a>
+
+
+<!-- Needs to go into it's own page? -->
+<form action="/boards_search" method='post'>
+  <div class="form-group">
+    <label for="search">Search</label>
+    <input type="text" name="search" class="form-control" id="search">
+  </div>
+  <button type="submit" class="btn btn-info">Search</button>
+</form>
+
+<br>
+<h3>Details Pages</h3>
+
+ <% @boards.each do |board| %>
+  <li><a href="/boards/<%= board.id %>"><%=board.name %></a></li>
+  <% end %>
