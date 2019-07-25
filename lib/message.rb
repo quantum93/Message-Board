@@ -33,9 +33,9 @@ class Message
     @@messages[self.id] = self
   end
 
-  def update(name, board_id)
+  def update(name)
     self.name = name
-    self.board_id = board_id
+    # self.board_id = board_id
     @@messages[self.id] = self
   end
 

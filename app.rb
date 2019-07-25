@@ -22,10 +22,20 @@ end
 post ('/boards') do
   name = params[:board_name]
   message = params[:board_message]
-  board = Board.new(name, message, nil)
+  board = Board.new({:name => name, :message => message, :id => nil})
   board.create()
   @boards = Board.all()
   erb(:boards)
+end
+
+# test
+post ('/boards/:id/messages') do
+  name = params[:message_name]
+  # message = params[:board_message]
+  @message = Message.new({:name => name, :id => nil})
+  # @board = Board.find(params[:id].to_i())
+  @message.update(name)
+  erb(:messages)
 end
 
 get ('/boards/:id') do

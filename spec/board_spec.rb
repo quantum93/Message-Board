@@ -16,7 +16,9 @@ describe '#Board' do
   describe('#==') do # This check whether the duplicated board assignment for same artist or not.
     it("is the same board if it has the same attributes as another board") do
       board = Board.new({:name => "Garland Board", :message => "Do work", :id => nil})
+      # board = Board.new({:name => "Garland Board", :message => "Do work", :id => nil})
       board2 = Board.new({:name => "Garland Board", :message => "Do work", :id => nil})
+      # board2 = Board.new({:name => "Garland Board", :message => "Do work", :id => nil})
       expect(board).to(eq(board2))
     end
   end
