@@ -6,10 +6,10 @@ class Board
   @@boards = {}
   @@total_rows = 0
 
-  def initialize(name, message, id)
-    @name = name
-    @message = message
-    @id = id || @@total_rows += 1
+  def initialize(attributes)
+    @name = attributes.fetch(:name)
+    @message = attributes.fetch(:message)
+    @id = attributes.fetch(:id) || @@total_rows += 1
   end
 
   def self.all
@@ -31,18 +31,18 @@ class Board
   end
 
   def create
-    duplicated = ""
+    warning = ""
     message = self.message
     @@boards.values.each do |board|
       if message == board.message
-        duplicated = "this message is already assigned to a board."
+        next
       end
     end
-    if duplicated == ""
+    if warning == ""
       # binding.pry
-      @@boards[self.id] = Board.new(self.name, self.message, self.id)
+      @@boards[self.id] = self
     end
-    duplicated
+    warning
   end
 
   def delete
@@ -52,7 +52,7 @@ class Board
   def update(name, message)
     self.name = name
     self.message = message
-    @@boards[self.id] = Board.new(self.name, self.message, self.id)
+    @@boards[self.id] =self
   end
 
   def messages

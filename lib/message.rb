@@ -7,10 +7,10 @@ class Message
   @@messages = {}
   @@total_rows = 0
 
-  def initialize(name, board_id, id)
-    @name = name
-    @board_id = board_id
-    @id = id || @@total_rows += 1
+  def initialize(attributes)
+    @name = attributes.fetch(:name)
+    @board_id = attributes.fetch(:board_id)
+    @id = attributes.fetch(:id) || @@total_rows += 1
   end
 
   def self.all
@@ -30,13 +30,13 @@ class Message
   end
 
   def create
-    @@messages[self.id] = Message.new(self.name, self.board_id, self.id)
+    @@messages[self.id] = self
   end
 
   def update(name, board_id)
     self.name = name
     self.board_id = board_id
-    @@messages[self.id] = Message.new(self.name, self.board_id, self.id)
+    @@messages[self.id] = self
   end
 
   def delete
